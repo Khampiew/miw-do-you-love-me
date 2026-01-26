@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Lao:wght@100..900&family=Phetsarath:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>ມິວຮັກເຂົາບໍ</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f3;
+            font-family: 'Kanit', sans-serif;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 400px;
+            z-index: 10;
+        }
+        .img-container {
+            width: 100%;
+            height: 250px;
+            margin-bottom: 20px;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 15px;
+        }
+        h1 {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            min-height: 60px; /* จองพื้นที่ข้อความ */
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            font-weight: bold;
+        }
+        #noBtn {
+            background-color: #6c757d;
+            color: white;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="img-container">
+            <img id="mainImg" src="./png.png/WhatsApp Image 2026-01-26 at 13.38.34.jpeg" alt="start">
+        </div>
+        <h1 id="textDisplay">ມິວຮັກບໍ~~🥺</h1>
+        <div class="btn-group">
+            <button id="yesBtn">ຮັກທີສຸດດ</button>
+            <button id="noBtn">ບໍ່ຮັກ</button>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const mainImg = document.getElementById('mainImg');
+        const textDisplay = document.getElementById('textDisplay');
+
+        // ข้อมูล 6 ระดับ (เปลี่ยนรูปและข้อความ)
+        const stages = [
+            { text: "ຄິດດີໆ ເດີ້... ຮັກບໍ່?", img: "./png.png/WhatsApp Image 2026-01-26 at 13.38.35(2).jpeg" },
+            { text: "ເສຍໃຈໃດ໋ນິ ແທ້ຫວາ?", img: "./png.png/WhatsApp Image 2026-01-26 at 13.38.35(1).jpeg" },
+            { text: "ໃຫ້ໂອກາດຕອບໃໝ່ໄປ້!", img: "./png.png/mm.jpg" },
+            { text: "ຮືຮືຮື ໃຈຮ້າຍແທ້...", img: "./png.png/gg.jpg" },
+            { text: "ໄຫ້ແລ້ວໃດ໋ນິ!", img: "./png.png/ss.jpg" },
+            { text: "ຈະບໍ່ຮັກແທ້ໆ ຫວາາາ?", img: "./png.png/oop.webp" }
+        ];
+
+        let count = 0;
+
+        noBtn.addEventListener('click', () => {
+            // 1. เปลี่ยนรูปและข้อความ (ถ้ายังไม่ครบ 6)
+            if (count < stages.length) {
+                mainImg.src = stages[count].img;
+                textDisplay.innerText = stages[count].text;
+                count++;
+            } else {
+                // ถ้าเกิน 6 ครั้งแล้ว ให้วนรูปสุดท้าย หรือเปลี่ยนเป็นคำอ้อนวอนอื่น
+                textDisplay.innerText = "ຮັກເຂົານ້າາາ~~~ 🥺❤️";
+            }
+
+            // 2. ย้ายตำแหน่งปุ่ม No ไปที่อื่นแบบสุ่ม
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = "fixed";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+
+            // 3. ทำให้ปุ่ม Yes ใหญ่ขึ้นเรื่อยๆ (Option เสริม)
+            const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (currentSize + 5) + "px";
+            yesBtn.style.padding = (parseFloat(window.getComputedStyle(yesBtn).padding) + 2) + "px";
+        });
+
+        // เมื่อกด Yes
+        yesBtn.addEventListener('click', () => {
+            textDisplay.innerText = "ເຍ້~~~ເຂົາກະຮັກອ້ວນນ່າາາາ ❤️";
+            mainImg.src = "png.png/min.webp"; // เปลี่ยนเป็นรูปขอบคุณ
+            noBtn.style.display = "none"; // ซ่อนปุ่ม No ไปเลย
+            yesBtn.style.fontSize = "1.5rem"; // ปรับขนาดกลับ
+        });
+    </script>
+</body>
+</html>
